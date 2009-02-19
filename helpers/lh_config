@@ -1163,18 +1163,6 @@ LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT}"
 # (Default: empty)
 LH_SYSLINUX_CFG="${LH_SYSLINUX_CFG}"
 
-# \$LH_GFXBOOT: enable gfxboot installation for syslinux
-# (Default: disabled)
-LH_GFXBOOT="${LH_GFXBOOT}"
-
-# \$LH_GFXBOOT_CFG: set custom gfxboot configuration file
-# (Default: empty)
-LH_GFXBOOT_CFG="${LH_GFXBOOT_CFG}"
-
-# \$LH_GFXBOOT_THEME: set gfxboot theme to use (overrides distribution)
-# (Default: empty)
-LH_GFXBOOT_THEME="${LH_GFXBOOT_THEME}"
-
 # \$LH_SYSLINUX_MENU: set syslinux menu
 # (Default: ${LH_SYSLINUX_MENU})
 LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU}"
@@ -1190,6 +1178,22 @@ LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY="${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}"
 # \$LH_SYSLINUX_MENU_MEMTEST_ENTRY: set text to be used on the menu for memtest entry
 # (Default: ${LH_SYSLINUX_MENU_MEMTEST_ENTRY})
 LH_SYSLINUX_MENU_MEMTEST_ENTRY="${LH_SYSLINUX_MENU_MEMTEST_ENTRY}"
+
+# \$LH_GFXBOOT: enable gfxboot installation for syslinux
+# (Default: disabled)
+LH_GFXBOOT="${LH_GFXBOOT}"
+
+# \$LH_GFXBOOT_CFG: set custom gfxboot configuration file
+# (Default: empty)
+LH_GFXBOOT_CFG="${LH_GFXBOOT_CFG}"
+
+# \$LH_GFXBOOT_THEME: set gfxboot theme to use (overrides distribution)
+# (Default: empty)
+LH_GFXBOOT_THEME="${LH_GFXBOOT_THEME}"
+
+# \$LH_GFXBOOT_SPLASH: set gfxboot splash to use (pcx format)
+# (Default: empty)
+LH_GFXBOOT_SPLASH="${LH_GFXBOOT_SPLASH}"
 
 # \$LH_USERNAME: set username
 # (Default: ${LH_USERNAME})
