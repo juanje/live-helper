@@ -1,0 +1,86 @@
+#!/bin/sh
+
+# lh_binary_enable_gfxboot(1) - enables gfxboot on syslinux
+# Copyright (C) 2009 Roberto C. Morano <rcmorano@emergya.es>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'enables gfxboot from an installed theme into binary')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ "${LH_BOOTLOADER}" != "gfxboot" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin gfxboot installation..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap .stage/binary_syslinux
+
+# Checking stage file
+Check_stagefile .stage/binary_gfxboot
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Restoring cache
+Restore_cache cache/packages_binary
+
+# Setting up some vars
+
+# Override "distro" gfxboot theme
+if [ ! -z ${LH_GFXBOOT_THEME} ]
+then
+	GFXBOOT_THEME="/usr/share/gfxboot-theme-${LH_GFXBOOT_THEME}"
+else
+	GFXBOOT_THEME="/usr/share/gfxboot-theme-${LH_DISTRIBUTION}"
+fi
+GFXBOOT_TGZ="$GFXBOOT_THEME/bootlogo.tar.gz"
+GFXBOOT_LANG="$GFXBOOT_THEME/lang"
+
+# Install gfxboot theme into binary
+
+if [ -e $GFXBOOT_TGZ ]
+then
+	tar zxf $GFXBOOT_TGZ -C binary/isolinux/
+else
+	exit -1
+fi
+
+if [ -e $GFXBOOT_LANG ]
+then
+	cp -a $GFXBOOT_LANG binary/isolinux/
+fi
+
+if [ ! -z ${LH_GFXBOOT_CFG} ]
+then
+	cp ${LH_GFXBOOT_CFG} binary/isolinux/
+fi
+
+# Saving cache
+Save_cache cache/packages_binary
+
+# Removing depends
+Remove_package
+
+# Creating stage file
+Create_stagefile .stage/binary_gfxboot
