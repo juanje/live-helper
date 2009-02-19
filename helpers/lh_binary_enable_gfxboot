@@ -76,6 +76,11 @@ then
 	cp ${LH_GFXBOOT_CFG} binary/isolinux/
 fi
 
+if [ ! -z ${LH_GFXBOOT_SPLASH} ]
+then
+	cp ${LH_GFXBOOT_SPLASH} binary/isolinux/
+fi
+
 # Saving cache
 Save_cache cache/packages_binary
 
