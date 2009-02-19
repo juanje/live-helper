@@ -1163,6 +1163,18 @@ LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT}"
 # (Default: empty)
 LH_SYSLINUX_CFG="${LH_SYSLINUX_CFG}"
 
+# \$LH_GFXBOOT: enable gfxboot installation for syslinux
+# (Default: disabled)
+LH_GFXBOOT="${LH_GFXBOOT}"
+
+# \$LH_GFXBOOT_CFG: set custom gfxboot configuration file
+# (Default: empty)
+LH_GFXBOOT_CFG="${LH_GFXBOOT_CFG}"
+
+# \$LH_GFXBOOT_THEME: set gfxboot theme to use (overrides distribution)
+# (Default: empty)
+LH_GFXBOOT_THEME="${LH_GFXBOOT_THEME}"
+
 # \$LH_SYSLINUX_MENU: set syslinux menu
 # (Default: ${LH_SYSLINUX_MENU})
 LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU}"
