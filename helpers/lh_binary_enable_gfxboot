@@ -63,6 +63,7 @@ if [ -e $GFXBOOT_TGZ ]
 then
 	tar zxf $GFXBOOT_TGZ -C binary/isolinux/
 else
+	Echo_error "gfxboot-theme-$GFXBOOT_THEME not installed"
 	exit 1
 fi
 
