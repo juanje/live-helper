@@ -63,7 +63,7 @@ if [ -e $GFXBOOT_TGZ ]
 then
 	tar zxf $GFXBOOT_TGZ -C binary/isolinux/
 else
-	exit -1
+	exit 1
 fi
 
 if [ -e $GFXBOOT_LANG ]
