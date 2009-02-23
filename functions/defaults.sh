@@ -852,21 +852,21 @@ Check_defaults ()
 
 	if [ "$(echo ${LH_ISO_APPLICATION} | wc -c)" -ge 129 ]
 	then
-		Echo_error "You have specified a too long string for iso application, the maximum lenght is 128 characters."
+		Echo_warning "You have specified a value of LH_ISO_APPLICATION that is too long; the maximum length is 128 characters."
 	fi
 
 	if [ "$(echo ${LH_ISO_PREPARER} | wc -c)" -ge  129 ]
 	then
-		 Echo_error "You have specified a too long string for iso preparer, the maximum lenght is 128 characters."
+		Echo_warning "You have specified a value of LH_ISO_PREPARER that is too long; the maximum length is 128 characters."
 	fi
 
 	if [ "$(echo ${LH_ISO_PUBLISHER} | wc -c)" -ge 129 ]
 	then
-		Echo_error "You have specified a too long string for iso publisher, the maximum lenght is 128 characters."
+		Echo_warning "You have specified a value of LH_ISO_PUBLISHER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LH_ISO_VOLUME} | wc -c)" -ge 33 ]
+	if [ "$(eval "echo ${LH_ISO_VOLUME}" | wc -c)" -ge 33 ]
 	then
-		Echo_error "You have specified a too long string for iso volume, the maximum lenght is 32 characters."
+		Echo_warning "You have specified a value of LH_ISO_VOLUME that is too long; the maximum length is 32 characters."
 	fi
 }
