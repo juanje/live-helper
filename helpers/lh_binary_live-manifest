@@ -46,21 +46,21 @@ Create_lockfile .lock
 Restore_cache cache/packages_binary
 
 # Setting some variables
-LIVE_PKGS="/tmp/live-pkgs"
+SED_SCRIPT="/tmp/remove-live-pkgs"
 
-# Remove temporal live-pkgs file
-if [ -f "$LIVE_PKGS" ]; then
-    rm -f $LIVE_PKGS
+# Remove temporal sed script file
+if [ -f "$SED_SCRIPT" ]; then
+    rm -f $SED_SCRIPT
 fi
 
-# Dump live-pkgs to a file
+# Dump live-pkgs to remove to sed script file
 for i in ${LH_LIVE_PACKAGES}
 do
-        echo "/$i/d" >> $LIVE_PKGS
+        echo "/$i/d" >> $SED_SCRIPT
 done
 
 # Create diff-merged file from original manifest
-sed -f $LIVE_PKGS < binary/casper/filesystem.manifest > filesystem.manifest-desktop 
+sed -f $SED_SCRIPT < binary/casper/filesystem.manifest > binary/casper/filesystem.manifest-desktop 
 
 # Saving cache
 Save_cache cache/packages_binary
