@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# lh_binary_create_live-manifest(1) - creates manifest file from the live env.
+# Copyright (C) 2009 Roberto C. Morano <rcmorano@emergya.es>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'creates a manifest file excluding the live-only packages')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ -z "${LH_LIVE_PACKAGES}" ]
+then
+	exit 0
+fi
+
+Echo_message "Creating live system manifest file..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap .stage/binary_manifest
+
+# Checking stage file
+Check_stagefile .stage/binary_live-manifest
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Restoring cache
+Restore_cache cache/packages_binary
+
+# Setting some variables
+LIVE_PKGS="/tmp/live-pkgs"
+
+# Remove temporal live-pkgs file
+if [ -f "$LIVE_PKGS" ]; then
+    rm -f $LIVE_PKGS
+fi
+
+# Dump live-pkgs to a file
+for i in ${LH_LIVE_PACKAGES}
+do
+        echo "/$i/d" >> $LIVE_PKGS
+done
+
+# Create diff-merged file from original manifest
+sed -f $LIVE_PKGS < binary/casper/filesystem.manifest > filesystem.manifest-desktop 
+
+# Saving cache
+Save_cache cache/packages_binary
+
+# Removing depends
+Remove_package
+
+# Creating stage file
+Create_stagefile .stage/binary_live-manifest
