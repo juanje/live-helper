@@ -46,6 +46,7 @@ fi
 # Building root filesystem
 lh_binary_rootfs ${*}
 lh_binary_manifest ${*}
+lh_binary_live-manifest ${*}
 lh_binary_encryption ${*}
 
 # Prepare images
