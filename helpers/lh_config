@@ -104,6 +104,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--net-tarball bzip2|gzip|tar|none]\n\
 \t    [-p|--packages-lists FILE]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
+\t    [--live-packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [--root-command sudo]\n\
 \t    [--use-fakeroot enabled|disabled]\n\
@@ -447,6 +448,11 @@ Local_arguments ()
 
 			--packages)
 				LH_PACKAGES="${2}"
+				shift 2
+				;;
+
+			--live-packages)
+				LH_LIVE_PACKAGES="${2}"
 				shift 2
 				;;
 
@@ -993,6 +999,11 @@ LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES}"
 # \$LH_PACKAGES: set packages to install
 # (Default: empty)
 LH_PACKAGES="${LH_PACKAGES}"
+
+# \$LH_LIVE_PACKAGES: set live packages:
+# Packages not supposed to stay on an installed system
+# (Default: empty)
+LH_LIVE_PACKAGES="${LH_LIVE_PACKAGES}"
 
 # \$LH_PACKAGES_LISTS: set package list to install
 # (Default: ${LH_PACKAGES_LISTS})
