@@ -37,6 +37,11 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+if [ ! -z "${LH_LIVE_PACKAGES}" ]
+then
+	LH_PACKAGES="${LH_PACKAGES} ${LH_LIVE_PACKAGES}"
+fi
+
 if [ -n "${LH_PACKAGES}" ] && [ "${LH_PACKAGES}" != "none" ]
 then
 	echo ${LH_PACKAGES} >> chroot/root/chroot_packages
