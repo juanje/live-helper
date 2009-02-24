@@ -48,37 +48,37 @@ Restore_cache cache/packages_binary
 # Setting up some vars
 
 # Override "distro" gfxboot theme
-if [ ! -z ${LH_GFXBOOT_THEME} ]
+if [ -n "${LH_GFXBOOT_THEME}" ]
 then
 	GFXBOOT_THEME="/usr/share/gfxboot-theme-${LH_GFXBOOT_THEME}"
 else
 	GFXBOOT_THEME="/usr/share/gfxboot-theme-${LH_DISTRIBUTION}"
 fi
-GFXBOOT_TGZ="$GFXBOOT_THEME/bootlogo.tar.gz"
-GFXBOOT_LANG="$GFXBOOT_THEME/lang"
+GFXBOOT_TGZ="${GFXBOOT_THEME}/bootlogo.tar.gz"
+GFXBOOT_LANG="${GFXBOOT_THEME}/lang"
 
 # Install gfxboot theme into binary
 
-if [ -e $GFXBOOT_TGZ ]
+if [ -e "$GFXBOOT_TGZ" ]
 then
-	tar zxf $GFXBOOT_TGZ -C binary/isolinux/
+	tar zxf "${GFXBOOT_TGZ}" -C binary/isolinux/
 else
 	exit -1
 fi
 
-if [ -e $GFXBOOT_LANG ]
+if [ -e ${GFXBOOT_LANG} ]
 then
-	cp -a $GFXBOOT_LANG binary/isolinux/
+	cp -r "${GFXBOOT_LANG}" binary/isolinux/
 fi
 
-if [ ! -z ${LH_GFXBOOT_CFG} ]
+if [ -n ${LH_GFXBOOT_CFG} ]
 then
-	cp ${LH_GFXBOOT_CFG} binary/isolinux/
+	cp "${LH_GFXBOOT_CFG}" binary/isolinux/
 fi
 
-if [ ! -z ${LH_GFXBOOT_SPLASH} ]
+if [ -n "${LH_GFXBOOT_SPLASH}" ]
 then
-	cp ${LH_GFXBOOT_SPLASH} binary/isolinux/
+	cp "${LH_GFXBOOT_SPLASH}" binary/isolinux/
 fi
 
 # Saving cache
