@@ -42,7 +42,8 @@ case "${LH_INITRAMFS}" in
 		INITFS="casper"
 
 		# Add filesystem.manifest
-		Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
+		#Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
+		Chroot chroot "dpkg-query -W --showformat='${Package} ${Version}\n' > binary/casper/filesystem.manifest"
 		;;
 
 	live-initramfs)
